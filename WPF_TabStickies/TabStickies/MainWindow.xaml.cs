@@ -197,7 +197,7 @@ namespace TabStickies
             // Одиночный клик — выбор вкладки
             button.Click += (_, __) => SelectTab(tab);
 
-            // 🔥 Двойной клик — удаление
+            // Двойной клик — удаление
             button.MouseDoubleClick += (_, __) =>
             {
                 if (_tabs.Count <= 1)
@@ -266,4 +266,5 @@ namespace TabStickies
         public string Title { get; set; } = "";
         public string Content { get; set; } = "";
     }
+
 }
