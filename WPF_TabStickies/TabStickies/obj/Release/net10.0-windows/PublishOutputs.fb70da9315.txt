@@ -1,0 +1,6 @@
+F:\MyProjects\WPF_TabStickies\TabStickies\bin\TabStickies.exe
+F:\MyProjects\WPF_TabStickies\TabStickies\bin\TabStickies.dll
+F:\MyProjects\WPF_TabStickies\TabStickies\bin\TabStickies.deps.json
+F:\MyProjects\WPF_TabStickies\TabStickies\bin\TabStickies.runtimeconfig.json
+F:\MyProjects\WPF_TabStickies\TabStickies\bin\TabStickies.pdb
+F:\MyProjects\WPF_TabStickies\TabStickies\bin\YamlDotNet.dll
