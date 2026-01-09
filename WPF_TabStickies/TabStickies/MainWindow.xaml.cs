@@ -662,7 +662,7 @@ namespace TabStickies
                 Tag = "Plain Text",
                 IsChecked = (_selectedTab?.Highlight == "Plain Text")
             };
-            noHighlightItem.Click += HighlightMenuItem_Click; // ✅ Правильно
+            noHighlightItem.Click += HighlightMenuItem_Click;
             highlightMenu.Items.Add(noHighlightItem);
 
             foreach (var def in definitions)
@@ -673,7 +673,7 @@ namespace TabStickies
                     Tag = def.Name,
                     IsChecked = (_selectedTab?.Highlight == def.Name)
                 };
-                item.Click += HighlightMenuItem_Click; // ✅
+                item.Click += HighlightMenuItem_Click; 
                 highlightMenu.Items.Add(item);
             }
 
@@ -835,4 +835,5 @@ namespace TabStickies
         public string Highlight { get; set; } = "Markdown";
         public double FontSize { get; set; } = 14;
     }
+
 }
