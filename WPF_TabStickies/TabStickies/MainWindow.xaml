@@ -3,22 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:local="clr-namespace:TabStickies"
         mc:Ignorable="d"
-        Title="Sticker" Height="400" Width="600"
-        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Title="Sticker"
+        WindowStyle="None"  AllowsTransparency="true" 
         ResizeMode="CanResizeWithGrip"
-        Topmost="{Binding AlwaysOnTop}"
-        Loaded="Window_Loaded" MouseDown="Window_MouseDown" KeyDown="Window_KeyDown">
-    <!-- Тень -->
-    <Window.Resources>
-        <DropShadowEffect x:Key="StickerShadow"
-                          BlurRadius="8"
-                          ShadowDepth="12"
-                          Color="#66000000" />
-    </Window.Resources>
+        Topmost="True"
+        Loaded="Window_Loaded" MouseDown="Window_MouseDown" PreviewKeyDown="Window_PreviewKeyDown">
+
     <!-- Основной скруглённый контейнер -->
-    <Border CornerRadius="12" Padding="0" Effect="{StaticResource StickerShadow}">
+    <Border CornerRadius="12" Padding="0">
         <Border.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFCCFF90" Offset="0.0" />
@@ -27,39 +22,81 @@
         </Border.Background>
 
         <Grid>
-            <!-- Область содержимого (ниже вкладок) -->
-            <Border Margin="0,40,0,30">
-                <TextBox x:Name="ContentEditor"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto"
-                     Background="Transparent" 
-                     BorderBrush="Gray"
-                     BorderThickness="1"
-                     FontSize="14"
-                     Margin="5"
-                     TextChanged="ContentEditor_TextChanged"/>
-            </Border>
-
-            <!-- Вкладки с улучшенной прокруткой -->
+            <!-- Вкладки -->
             <ScrollViewer HorizontalScrollBarVisibility="Auto"
-              VerticalScrollBarVisibility="Hidden"
-              Height="50"
-              VerticalAlignment="Top"
-              PanningMode="HorizontalOnly"
-              PanningDeceleration="100">
+                  VerticalScrollBarVisibility="Hidden"
+                  Height="50"
+                  VerticalAlignment="Top"
+                  PanningMode="HorizontalOnly">
+                <ScrollViewer.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF3F6C10"/>
+                        <GradientStop Color="#FFB1DA85" Offset="1"/>
+                    </LinearGradientBrush>
+                </ScrollViewer.Background>
                 <StackPanel x:Name="TabsPanel"
-                Orientation="Horizontal"
-                Margin="5,5,5,0"
-                Height="40"/>
+                    Orientation="Horizontal"
+                    Margin="5,5,5,0"
+                    Height="40"/>
             </ScrollViewer>
 
+            <!-- Редактор -->
+            <avalonEdit:TextEditor x:Name="TextEditor"
+                           Margin="0,50,0,50"
+                           FontFamily="Consolas"
+                           WordWrap="True"
+                           VerticalScrollBarVisibility="Auto"
+                           HorizontalScrollBarVisibility="Auto"
+                           FontSize="14"
+                           ShowLineNumbers="False"
+                           Visibility="Visible"
+                           ContextMenuOpening="TextEditor_ContextMenuOpening"
+                           TextChanged="TextEditor_TextChanged"
+                           PreviewMouseWheel="TextEditor_PreviewMouseWheel">
+                <avalonEdit:TextEditor.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF1DB811"/>
+                        <GradientStop Color="#FFB7E2B3" Offset="1"/>
+                        <GradientStop Color="#FF54E76D" Offset="0.361"/>
+                        <GradientStop Color="#FF97E19C"/>
+                        <GradientStop Color="#FFC0E9BF"/>
+                    </LinearGradientBrush>
+                </avalonEdit:TextEditor.Background>
+                
+            </avalonEdit:TextEditor>
+
+            <!-- Статусбар -->
+            <StatusBar VerticalAlignment="Bottom" Height="24">
+                <StatusBarItem>
+                    <TextBlock x:Name="StatusText" Text="Готов"/>
+                </StatusBarItem>
+            </StatusBar>
+
             <!-- Кнопки управления -->
-            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0,0,5,5">
+            <StackPanel HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Orientation="Horizontal"
+                Margin="0,0,5,5"
+                Background="#F0F0F0">
+                <!-- Поле поиска (изначально скрыто) -->
+                <TextBox x:Name="SearchBox"
+             Width="150"
+             Margin="2"
+             Visibility="Collapsed"
+             KeyDown="SearchBox_KeyDown"/>
+                <Button x:Name="CloseSearchButton"
+            Content="×"
+            Width="25"
+            Margin="2"
+            Visibility="Collapsed"
+            Click="CloseSearchPanel"/>
+                <Button Content="🔍 Поиск" Click="ToggleSearchPanel" Padding="4" Margin="2"/>
                 <Button Content="+" Click="AddTab_Click" Width="25" Height="25" Padding="0"/>
                 <Button Content="💾" Click="SaveButton_Click" Width="30" Height="25" Margin="5,0,0,0" Padding="0"/>
                 <Button Content="X" Click="CloseButton_Click" Width="30" Height="25" Margin="5,0,0,0" Padding="0"/>
             </StackPanel>
+
+     
         </Grid>
     </Border>
 </Window>
